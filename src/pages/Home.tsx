@@ -28,13 +28,15 @@ export default function Home() {
       {/* ---------- Héros ---------- */}
       <section className="relative isolate overflow-hidden bg-ink text-white">
         <img
-          src={img('2025/08/Tv49-CylBuvX.jpeg')}
-          alt="Jeunes et paroissiens réunis devant une église, bras levés"
-          className="absolute inset-0 -z-20 size-full object-cover object-[center_65%]"
+          src="/media/image_fond.webp"
+          srcSet="/media/image_fond-960.webp 960w, /media/image_fond.webp 1920w"
+          sizes="100vw"
+          alt="Crèche entourée de lumignons allumés dans l’église"
+          className="absolute inset-0 -z-20 size-full object-cover object-[center_40%]"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/80 to-ink/20" aria-hidden />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/70 via-transparent to-transparent" aria-hidden />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/5" aria-hidden />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/60 via-transparent to-ink/20" aria-hidden />
 
         <Container className="grid grid-cols-1 items-center gap-12 py-20 sm:py-28 lg:grid-cols-[1.25fr_1fr] lg:py-36">
           <div className="animate-fade-up">
