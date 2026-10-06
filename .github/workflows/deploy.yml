@@ -30,6 +30,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
+      ACCES_RENSEIGNES: ${{ secrets.SFTP_HOST != '' && secrets.SFTP_USER != '' && secrets.SFTP_PASSWORD != '' }}
       DOSSIER_RENSEIGNE: ${{ secrets.SFTP_DIR != '' }}
     steps:
       - name: Récupérer le code
@@ -47,10 +48,17 @@ jobs:
       - name: Compiler le site
         run: npm run build
 
+      - name: Accès one.com manquants ?
+        if: env.ACCES_RENSEIGNES != 'true'
+        run: |
+          echo "::warning::Les secrets SFTP_HOST, SFTP_USER et SFTP_PASSWORD ne sont pas encore renseignés : le site est compilé mais n'est pas envoyé chez one.com."
+
       - name: Installer l'outil d'envoi (lftp)
+        if: env.ACCES_RENSEIGNES == 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
       - name: Contenu du serveur (pour vérifier le dossier)
+        if: env.ACCES_RENSEIGNES == 'true'
         env:
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
           SFTP_USER: ${{ secrets.SFTP_USER }}
@@ -60,6 +68,7 @@ jobs:
           lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST" -e "set sftp:auto-confirm yes; set net:max-retries 2; echo '--- racine :'; cls -la /; echo '--- dossier du site :'; cls -la '${SFTP_DIR:-.}'; quit"
 
       - name: Envoyer le site chez one.com
+        if: env.ACCES_RENSEIGNES == 'true'
         env:
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
           SFTP_USER: ${{ secrets.SFTP_USER }}
@@ -75,7 +84,7 @@ jobs:
           lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST" -e "set sftp:auto-confirm yes; set net:max-retries 3; mirror --reverse --verbose --parallel=4 dist/ '$SFTP_DIR'; quit"
 
       - name: Vérifier le site en ligne
-        if: env.DOSSIER_RENSEIGNE == 'true'
+        if: env.ACCES_RENSEIGNES == 'true' && env.DOSSIER_RENSEIGNE == 'true'
         run: |
           sleep 5
           code=$(curl -s -o /dev/null -w "%{http_code}" https://3paroisses-lyon5-tassin.eu/bapteme)
