@@ -1,0 +1,26 @@
+{
+  "name": "studio-3paroisses",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "import-wordpress": "sanity exec scripts/import-wordpress.mjs --with-user-token",
+    "import-essai": "node scripts/import-wordpress.mjs --essai"
+  },
+  "dependencies": {
+    "@sanity/locale-fr-fr": "^1.2.37",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sanity": "^6.17.0",
+    "styled-components": "^6.5.3"
+  },
+  "devDependencies": {
+    "@portabletext/block-tools": "^6.0.3",
+    "@sanity/client": "^8.9.0",
+    "jsdom": "^29.1.1",
+    "typescript": "^7.0.2"
+  }
+}

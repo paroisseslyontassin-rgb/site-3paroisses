@@ -1,0 +1,157 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+
+  /* Couleurs de base */
+  --color-ink: #14213d;
+  --color-ink-soft: #3b4660;
+  --color-cream: #faf7f1;
+  --color-sand: #f2ece1;
+  --color-line: #e6dfd2;
+  --color-gold: #b8893b;
+  --color-gold-soft: #f4ead6;
+
+  /* Couleurs des trois paroisses (reprises du logo) */
+  --color-anne: #c8402f;
+  --color-ndpj: #1f5fae;
+  --color-joseph: #2e8b4e;
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-cream font-sans text-ink antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight text-balance;
+  }
+  ::selection {
+    @apply bg-gold-soft text-ink;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold;
+  }
+}
+
+@layer components {
+  /* Texte éditorial */
+  .prose-paroisse {
+    @apply max-w-none text-[1.05rem] leading-relaxed text-ink-soft;
+  }
+  .prose-paroisse > * + * {
+    @apply mt-4;
+  }
+  .prose-paroisse h3 {
+    @apply mt-10 text-2xl text-ink;
+  }
+  .prose-paroisse h4 {
+    @apply mt-8 text-xl text-ink;
+  }
+  .prose-paroisse ul {
+    @apply list-disc space-y-2 pl-5 marker:text-gold;
+  }
+  .prose-paroisse a {
+    @apply font-medium text-ndpj underline decoration-ndpj/30 underline-offset-4 hover:decoration-ndpj;
+  }
+  .prose-paroisse blockquote {
+    @apply border-l-4 border-gold pl-5 font-display text-xl italic text-ink;
+  }
+  .prose-paroisse strong {
+    @apply font-semibold text-ink;
+  }
+}
+
+/* Contenus venant de WordPress (articles d'actualité) */
+@layer components {
+  .wp-content {
+    @apply max-w-3xl;
+  }
+  .wp-content h1,
+  .wp-content h2 {
+    @apply mt-10 text-3xl text-ink;
+  }
+  .wp-content h3,
+  .wp-content h4,
+  .wp-content h5,
+  .wp-content h6 {
+    @apply mt-8 text-2xl text-ink;
+  }
+  .wp-content figure {
+    @apply my-8;
+  }
+  .wp-content img {
+    @apply h-auto max-w-full cursor-zoom-in rounded-2xl border border-line bg-white shadow-sm transition-shadow hover:shadow-xl;
+  }
+  .wp-content a img {
+    @apply cursor-pointer;
+  }
+  .wp-content figcaption {
+    @apply mt-2 text-center text-sm text-ink-soft;
+  }
+  .wp-content .wp-poster-grid {
+    @apply my-8 grid grid-cols-1 gap-6 sm:grid-cols-2;
+  }
+  .wp-content .wp-poster-grid figure {
+    @apply m-0;
+  }
+  .wp-content .wp-block-gallery {
+    @apply grid grid-cols-2 gap-4 sm:grid-cols-3;
+  }
+  .wp-content .wp-block-columns {
+    @apply grid gap-6 md:grid-flow-col md:auto-cols-fr;
+  }
+  .wp-content table {
+    @apply w-full border-collapse overflow-hidden rounded-2xl border border-line bg-white text-left;
+  }
+  .wp-content td,
+  .wp-content th {
+    @apply border-b border-line p-4 align-top;
+  }
+  .wp-content iframe,
+  .wp-content video {
+    @apply aspect-video h-auto w-full rounded-2xl;
+  }
+  .wp-content hr {
+    @apply my-10 border-line;
+  }
+  /* Boutons Kadence / Gutenberg */
+  .wp-content .kb-buttons-wrap,
+  .wp-content .wp-block-buttons {
+    @apply my-8 flex flex-wrap gap-3;
+  }
+  .wp-content a.kb-button,
+  .wp-content .wp-block-button__link {
+    @apply inline-flex items-center rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white no-underline shadow-sm transition-colors hover:bg-ink/90;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
