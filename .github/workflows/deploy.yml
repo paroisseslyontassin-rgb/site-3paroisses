@@ -29,6 +29,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DOSSIER_RENSEIGNE: ${{ secrets.SFTP_DIR != '' }}
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
@@ -55,7 +57,7 @@ jobs:
           SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           SFTP_DIR: ${{ secrets.SFTP_DIR }}
         run: |
-          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST" -e "set sftp:auto-confirm yes; set net:max-retries 2; echo '--- racine :'; cls -la /; echo '--- dossier du site :'; cls -la '${SFTP_DIR:-/}'; quit"
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST" -e "set sftp:auto-confirm yes; set net:max-retries 2; echo '--- racine :'; cls -la /; echo '--- dossier du site :'; cls -la '${SFTP_DIR:-.}'; quit"
 
       - name: Envoyer le site chez one.com
         env:
@@ -66,9 +68,14 @@ jobs:
         # Sans --delete : on ajoute et remplace les fichiers du site, on ne supprime jamais rien sur le serveur
         # (l'ancien WordPress éventuellement présent reste intact).
         run: |
-          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST" -e "set sftp:auto-confirm yes; set net:max-retries 3; mirror --reverse --verbose --parallel=4 dist/ '${SFTP_DIR:-/}'; quit"
+          if [ -z "$SFTP_DIR" ]; then
+            echo "::warning::Le secret SFTP_DIR n'est pas encore renseigné : rien n'a été envoyé. Regardez l'étape « Contenu du serveur » pour trouver le dossier du site, puis ajoutez SFTP_DIR."
+            exit 0
+          fi
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST" -e "set sftp:auto-confirm yes; set net:max-retries 3; mirror --reverse --verbose --parallel=4 dist/ '$SFTP_DIR'; quit"
 
       - name: Vérifier le site en ligne
+        if: env.DOSSIER_RENSEIGNE == 'true'
         run: |
           sleep 5
           code=$(curl -s -o /dev/null -w "%{http_code}" https://3paroisses-lyon5-tassin.eu/bapteme)
