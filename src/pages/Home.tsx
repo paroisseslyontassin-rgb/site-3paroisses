@@ -38,17 +38,17 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/5" aria-hidden />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/60 via-transparent to-ink/20" aria-hidden />
 
-        <Container className="grid grid-cols-1 items-center gap-12 py-20 sm:py-28 lg:grid-cols-[1.25fr_1fr] lg:py-36">
+        <Container className="grid grid-cols-1 items-center gap-8 py-10 sm:py-14 lg:grid-cols-[1.25fr_1fr] lg:gap-12 lg:py-14">
           <div className="animate-fade-up">
             <Eyebrow>Bienvenue</Eyebrow>
-            <h1 className="text-[2.6rem] leading-[1.05] font-medium sm:text-6xl lg:text-7xl">
+            <h1 className="text-[2.2rem] leading-[1.05] font-medium sm:text-5xl lg:text-6xl">
               La joie de célébrer Dieu <em className="font-normal text-gold-soft">à chaque étape</em> de la Vie
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
               Sainte-Anne de Ménival, Notre-Dame du Point-du-Jour et Saint-Joseph de la Demi-Lune : trois paroisses, une même
               communauté, portée par les Salésiens de Don Bosco.
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Button to="/horaires" variant="gold">
                 Horaires des messes
               </Button>
@@ -59,22 +59,22 @@ export default function Home() {
           </div>
 
           {/* Carte des messes du week-end */}
-          <div className="animate-fade-up rounded-3xl border border-white/15 bg-white/10 p-6 shadow-2xl backdrop-blur-xl [animation-delay:150ms] sm:p-8">
+          <div className="animate-fade-up rounded-3xl border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur-xl [animation-delay:150ms] sm:p-6">
             <div className="flex items-center justify-between">
               <p className="flex items-center gap-2 text-sm font-semibold tracking-widest text-gold-soft uppercase">
                 <Clock className="size-4" /> Messes du week-end
               </p>
             </div>
             {alert && (
-              <div className="mt-5">
+              <div className="mt-4">
                 <AlertNotice alert={alert} variant="dark" />
               </div>
             )}
-            <ul className="mt-6 space-y-3">
+            <ul className="mt-4 space-y-2">
               {weekendMasses(parishes).map((m) => {
                 const p = m.parish
                 return (
-                  <li key={m.day + m.time + p.id} className="flex items-center gap-3 rounded-2xl bg-white/[0.07] px-3 py-3 sm:gap-4 sm:px-4">
+                  <li key={m.day + m.time + p.id} className="flex items-center gap-3 rounded-xl bg-white/[0.07] px-3 py-2 sm:gap-4 sm:px-4">
                     <span className="w-16 shrink-0 text-[0.7rem] font-semibold tracking-wider text-white/60 uppercase sm:w-20 sm:text-xs">{m.day}</span>
                     <span className="w-14 shrink-0 font-display text-xl text-white sm:w-16 sm:text-2xl">{m.time}</span>
                     <span className="min-w-0 flex-1">
@@ -82,13 +82,17 @@ export default function Home() {
                         <span className="size-2 shrink-0 rounded-full" style={{ background: p.color }} />
                         <span className="truncate">{p.name}</span>
                       </span>
-                      {m.note && <span className="block text-xs text-white/55">{m.note}</span>}
+                      {m.note && (
+                        <span className="block truncate text-xs text-white/55" title={m.note}>
+                          {m.note}
+                        </span>
+                      )}
                     </span>
                   </li>
                 )
               })}
             </ul>
-            <Link to="/horaires" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-soft hover:text-white">
+            <Link to="/horaires" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-soft hover:text-white">
               Messes en semaine, adoration, chapelet <ArrowRight className="size-4" />
             </Link>
           </div>
