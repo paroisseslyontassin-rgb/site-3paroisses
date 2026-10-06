@@ -104,12 +104,16 @@ npm run dev      # puis ouvrir http://localhost:5173
 
 ### Mettre en ligne le site
 
-```bash
-npm run build
-```
+**C'est automatique** : à chaque modification envoyée sur GitHub (`git push`), GitHub compile le site et
+l'envoie chez one.com (voir `.github/workflows/deploy.yml`). On suit la progression dans l'onglet **Actions**
+du dépôt GitHub ; on peut aussi relancer à la main (*Actions → Mise en ligne → Run workflow*).
 
-Envoyer **tout le contenu du dossier `dist/`** à la racine de l'hébergement (one.com, par FTP).
-Le fichier `.htaccess` inclus permet aux adresses comme `/bapteme` de fonctionner. Les anciennes adresses
+Réglages faits une seule fois dans GitHub (*Settings → Secrets and variables → Actions*) :
+`SFTP_HOST`, `SFTP_USER`, `SFTP_PASSWORD` (accès SFTP donnés par one.com) et `SFTP_DIR` (dossier du site sur le
+serveur). Tant que `SFTP_DIR` est vide, GitHub affiche le contenu du serveur sans rien envoyer.
+
+L'envoi ne supprime jamais rien sur le serveur. Le fichier `.htaccess` inclus permet aux adresses comme `/bapteme`
+de fonctionner. Les anciennes adresses
 WordPress (`/home`, `/soutien`, `/phare-ouest`…) redirigent vers les nouvelles pages, et les articles gardent
 leur adresse (`/celebrations`, `/passerelle`…). Publier un article dans Sanity **ne demande pas** de remettre le
 site en ligne.
