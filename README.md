@@ -4,7 +4,7 @@ Site de l'ensemble paroissial Sainte-Anne de Ménival, Notre-Dame du Point-du-Jo
 
 - **Le site** (dossier racine) : React + TypeScript + Tailwind CSS (Vite), hébergé chez one.com.
 - **L'administration** (dossier `studio/`) : [Sanity](https://www.sanity.io), offre gratuite. L'équipe y écrit
-  les actualités, l'alerte importante et les horaires ; le site les affiche aussitôt.
+  les actualités, l'alerte importante, les horaires et l'équipe ; le site les affiche aussitôt.
 
 ---
 
@@ -13,7 +13,7 @@ Site de l'ensemble paroissial Sainte-Anne de Ménival, Notre-Dame du Point-du-Jo
 L'administration se trouve à l'adresse **https://paroisses3-lyon5-tassin.sanity.studio** (connexion avec son compte Google
 ou une adresse e-mail, sur invitation). Elle est en français, sur ordinateur comme sur téléphone.
 
-À gauche, trois rubriques :
+À gauche, quatre rubriques :
 
 ### 📰 Actualités
 
@@ -48,6 +48,13 @@ Pour le retirer : décocher la case, puis *Publier*.
 Une fiche par église, avec ses **messes** et ses **temps de prière**. Pour chaque ligne : jour, heure (écrite
 `18h00`), activité (pour la prière) et remarque. Modifier, puis **Publier**. Les messes du samedi et du dimanche
 s'affichent aussi sur la page d'accueil.
+
+### 👥 Équipe
+
+Deux listes : **Prêtres et frères** (prénom, nom, rôle, e-mail) et **Diacres** (prénom, nom, e-mail). On peut
+ajouter une personne (**+ Ajouter**), corriger une fiche en cliquant dessus, la retirer (menu **⋯** → *Supprimer*)
+ou changer l'ordre par glisser-déposer. Puis **Publier**. L'équipe s'affiche sur les pages « Qui sommes-nous ? »
+et « Contact » ; l'e-mail, s'il est rempli, ajoute un lien « Écrire ».
 
 ### Les accès
 
@@ -122,7 +129,7 @@ site en ligne.
 
 | Je veux changer…                                        | Fichier                              |
 | ------------------------------------------------------- | ------------------------------------ |
-| Horaires de secours, adresses, téléphones, équipe       | `src/data/site.ts`                   |
+| Horaires et équipe de secours, adresses, téléphones     | `src/data/site.ts`                   |
 | Liens d'inscription (Enoria), dons, menu                | `src/data/site.ts`                   |
 | Champs disponibles dans l'administration               | `studio/schemas/`                    |
 | Le texte d'une page fixe (sacrements, Don Bosco…)       | `src/pages/…` (un fichier par thème) |

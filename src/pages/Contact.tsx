@@ -1,10 +1,12 @@
 import { Clock, Mail, MapPin, Phone } from 'lucide-react'
 import { Button, PageHero, Section, SectionTitle } from '../components/ui'
-import { clergy, deacons, parishes, site, tel } from '../data/site'
+import { parishes, site, tel } from '../data/site'
+import { useTeam } from '../lib/team'
 import { useTitle } from '../lib/useTitle'
 
 export default function Contact() {
   useTitle('Contact')
+  const { clergy, deacons } = useTeam()
   const priests = clergy.filter((c) => c.email)
   return (
     <>

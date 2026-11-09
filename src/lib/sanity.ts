@@ -94,7 +94,7 @@ export async function fetchArticle(slug: string) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Alerte et horaires (documents uniques)                              */
+/* Alerte, horaires et équipe (documents uniques)                      */
 /* ------------------------------------------------------------------ */
 
 export type RawAlert = { _updatedAt: string; active?: boolean; message?: string; dateFin?: string; details?: PortableTextBlock[] }
@@ -111,6 +111,14 @@ export type RawSchedule = { _updatedAt: string; sainteAnne?: RawChurch; notreDam
 export async function fetchSchedule() {
   if (!sanityConfigured) return null
   return client.fetch<RawSchedule | null>(`*[_id == "horaires"][0]`)
+}
+
+export type RawPerson = { prenom?: string; nom?: string; role?: string; email?: string }
+export type RawTeam = { pretres?: RawPerson[]; diacres?: RawPerson[] }
+
+export async function fetchTeam() {
+  if (!sanityConfigured) return null
+  return client.fetch<RawTeam | null>(`*[_id == "equipe"][0] { pretres, diacres }`)
 }
 
 /* ------------------------------------------------------------------ */

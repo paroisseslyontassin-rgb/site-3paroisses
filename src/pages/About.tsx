@@ -1,12 +1,14 @@
 import { ArrowUpRight, Mail } from 'lucide-react'
 import { Gallery } from '../components/Gallery'
 import { Button, Container, Eyebrow, PageHero, Section, SectionTitle } from '../components/ui'
-import { clergy, communities, deacons, site } from '../data/site'
+import { communities, site } from '../data/site'
 import { img } from '../lib/media'
+import { useTeam } from '../lib/team'
 import { useTitle } from '../lib/useTitle'
 
 export function QuiSommesNous() {
   useTitle('Qui sommes-nous ?')
+  const { clergy, deacons } = useTeam()
   return (
     <>
       <PageHero
