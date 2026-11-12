@@ -45,7 +45,7 @@ export default function Donner() {
             <Eyebrow>Chaque dimanche</Eyebrow>
             <h2 className="text-3xl font-medium text-ink sm:text-4xl">L’offrande naturelle de la quête dominicale</h2>
             <p>
-              Une analyse de nos comptes montre que <strong>8 € par fidèle, chaque semaine</strong>, sont nécessaires pour couvrir les
+              Une analyse de nos comptes montre que <strong>7 € par fidèle, chaque semaine</strong>, sont nécessaires pour couvrir les
               charges courantes. Vous pouvez déposer votre offrande dans les paniers mis à disposition lors des célébrations.
             </p>
             <p>
