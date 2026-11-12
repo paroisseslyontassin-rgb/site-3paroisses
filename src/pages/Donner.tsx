@@ -65,7 +65,7 @@ export default function Donner() {
             columns={2}
             aspect="aspect-[3/4]"
             images={[
-              { src: img('2024/12/interieur_quete-prelevee-1024x724.jpg'), alt: 'Dépliant quête prélevée (intérieur)' },
+              { src: img('2027/01/lumiere_vase.gif'), alt: 'Dépliant quête prélevée (intérieur)' },
               { src: img('2024/12/interieur_verso-1-724x1024.jpg'), alt: 'Dépliant quête prélevée (verso)' },
             ]}
           />
