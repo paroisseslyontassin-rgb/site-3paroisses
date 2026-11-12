@@ -42,7 +42,7 @@ export default function Home() {
           <div className="animate-fade-up">
             <Eyebrow>Bienvenue</Eyebrow>
             <h1 className="text-[2.2rem] leading-[1.05] font-medium sm:text-5xl lg:text-6xl">
-              La joie de célébrer Dieu <em className="font-normal text-gold-soft">à chaque étape</em> de la Vie
+              La joieeeee de célébrer Dieu <em className="font-normal text-gold-soft">à chaque étape</em> de la Vie
             </h1>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
               Sainte-Anne de Ménival, Notre-Dame du Point-du-Jour et Saint-Joseph de la Demi-Lune : trois paroisses, une même
